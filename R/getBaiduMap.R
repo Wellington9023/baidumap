@@ -60,7 +60,7 @@ getBaiduMap = function(location, width=400, height = 400, zoom=10,
     url_head = "http://api.map.baidu.com/staticimage?"
     url = paste0(url_head, "width=", width, "&height=", height,"&zoom=", zoom, 
                  "&center=",lon, ",", lat )
-    if (scale == 2) url = paste0(url, "&scale=2","&65a98d766b1c8caf625ddc8ad5945021")
+    if (scale == 2) url = paste0(url, "&scale=2")
     
     ## download image
     if  (!'baiduMapFileDrawer' %in% list.dirs(full.names= F, recursive=F)) {
