@@ -32,9 +32,13 @@
 #' ## do not print messages
 #' p <- getBaiduMap(messaging = F)
 #' }
+
+
 getBaiduMap = function(location, width=400, height = 400, zoom=10, 
                        scale=2, color = "color", messaging = TRUE,
                        map_ak = ''){
+    library(png)
+    library(RgoogleMaps)
     if (map_ak == '' && is.null(getOption('baidumap.key'))){
         stop(Notification)
     }else{
@@ -51,11 +55,12 @@ getBaiduMap = function(location, width=400, height = 400, zoom=10,
     lon = location_cor[1];
     lat = location_cor[2];
     
+    
     ## set url
     url_head = "http://api.map.baidu.com/staticimage?"
-    url = paste0(url_head, "width=", width, "&height=", height, "&center=",
-                 lon, ",", lat, "&zoom=", zoom)
-    if (scale == 2) url = paste0(url, "&scale=2")
+    url = paste0(url_head, "width=", width, "&height=", height,"&zoom=", zoom, 
+                 "&center=",lon, ",", lat )
+    if (scale == 2) url = paste0(url, "&scale=2","&65a98d766b1c8caf625ddc8ad5945021")
     
     ## download image
     if  (!'baiduMapFileDrawer' %in% list.dirs(full.names= F, recursive=F)) {
@@ -68,6 +73,7 @@ getBaiduMap = function(location, width=400, height = 400, zoom=10,
     
     ## read image and transform to ggmap obejct 
     map = readPNG(paste0("baiduMapFileDrawer/", destfile))
+    
     # format file
     if(color == "color"){
         map <- apply(map, 2, rgb)
@@ -77,6 +83,9 @@ getBaiduMap = function(location, width=400, height = 400, zoom=10,
         dim(map) <- mapd[1:2]
     }
     class(map) <- c("ggmap","raster")
+    
+    ggmap::ggmap(out)
+    
     
     # map spatial info
     ll <- XY2LatLon(
@@ -99,6 +108,6 @@ getBaiduMap = function(location, width=400, height = 400, zoom=10,
     
     # transpose
     out <- t(map)
-    out
+    ggmap::ggmap(out)
 }
 
