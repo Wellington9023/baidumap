@@ -6,9 +6,8 @@ getLocation.core = function(location, output='json', formatted = F,
     }
     lon = location[, 1]
     lat = location[, 2]
-	url_head = paste0("http://api.map.baidu.com/geocoder/v2/?ak=", map_ak, "&location=")
-	url_tail = paste0("&output=", output, "&", "pois=", pois, collapse='')
-	url = paste0(url_head, lat, ",", lon, url_tail)
+	url_head = paste0("http://api.map.baidu.com/reverse_geocoding/v3/?ak=", map_ak,"&output=", output,"&coordtype=wgs84ll", "&location=")
+	url = paste0(url_head, lat, ",", lon)
 	
     ##### result
 	result = tryCatch(getURL(url),error = function(e) {getURL(url, timeout = 200)})
