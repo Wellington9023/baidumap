@@ -24,8 +24,10 @@ getCoordinate.core = function(address, city=NULL,
             long = gsub('.*?"lng":([\\.0-9]*).*', '\\1', x)
         }
         long = as.numeric(long); lat = as.numeric(lat)
-        return(c("longtitude" = long, "latitude" = lat))
+        return(data.frame("site"=address,"longtitude" = long, "latitude" = lat))
     }
+    result = trans(result)
+    
     if (formatted) {
         if (length(result) > 1) {
             result = t(sapply(result, trans))
