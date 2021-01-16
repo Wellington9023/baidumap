@@ -80,4 +80,5 @@ getLocation = function (location, output = "json", formatted = F,
             res<-getLocation.core(location, output, formatted , pois)
         }
         res
-}
+
+        }
